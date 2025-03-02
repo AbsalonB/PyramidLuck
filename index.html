@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar Números Aleatorios</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-color: #10498d;
+      /* Fondo azul */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      /* Alineación vertical ajustada */
+      height: 100vh;
+      margin: 0;
+      padding-top: 50px;
+      /* Ajuste de separación superior */
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    input[type="number"] {
+      max-width: 35%;
+      /* Ajuste de ancho máximo */
+      margin: 0 auto;
+      /* Centrado horizontal del input */
+      text-align: center;
+      font-size: x-large;
+    }
+
+    h1,
+    label {
+      color: white;
+    }
+    #resultado {
+      color: white;
+      font-size: x-large;
+    }
+    button {
+      font-size: x-large;
+    }
+  </style>
+  <script>
+    function generateResult() {
+     
+       pyramidNumber($('#numero').val());
+    }
+
+    function clean() {
+      document.getElementById('resultado').innerHTML = '';
+    }
+
+    function nextRow(row) {
+      let newRow = '';
+      for (let i = 0; i < row.length - 1; i++) {
+        // Sumar dos dígitos consecutivos y tomar el último dígito del resultado
+        newRow += (parseInt(row[i]) + parseInt(row[i + 1])).toString().slice(-1);
+      }
+      return newRow;
+    }
+
+    function pyramidNumber(number) {
+      // Convertir el número a una cadena
+      let currentRow = number.toString();
+      let resultadoDiv = document.getElementById('resultado');
+      // Llamar recursivamente hasta que solo quede un dígito
+      while (currentRow.length >= 1) {
+        resultadoDiv.innerHTML += currentRow + '<br>';
+        currentRow = nextRow(currentRow);
+      }
+
+      // Imprimir la última fila de un solo dígito
+      console.log(currentRow);
+    } 
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Pirámide de la suerte</h1>
+    <div class="form-group">
+      <label for="numero">Introduce un número:</label>
+      <input type="number" class="form-control" id="numero">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="generateResult()">Generar</button>
+    <button type="button" class="btn btn-light" onclick="clean()">Limpiar Pirámide</button>
+    <div class="mt-4" id="resultado"></div>
+  </div>
+</body>
+
+</html>
